@@ -61,9 +61,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "https://insurance-management-frontend-0sw6.onrender.com"
+]
+
 
 
 TEMPLATES = [
@@ -154,10 +157,9 @@ REST_FRAMEWORK = {
 }
 
 
-# Change "None" to "Lax" for local development
-SESSION_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SECURE = False 
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SAMESITE = "Lax"
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = True
 
