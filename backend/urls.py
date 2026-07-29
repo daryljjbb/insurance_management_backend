@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from customers.create_superuser import create_temp_superuser
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('customers.urls')),  # Include the customers app URLs
+    path('create_temp_superuser/', create_temp_superuser),  # Add this line
 ]
