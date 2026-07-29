@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'insurance-management-backend-4p7z.onrender.com',   
     '127.0.0.1',
+    'https://insurance-management-frontend-0sw6.onrender.com'
 ]
 
 
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'gunicorn',
     'customers',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +131,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        # This allows GET requests for everyone, 
+        # but requires login for POST, PUT, DELETE
+       "rest_framework.permissions.IsAuthenticatedOrReadOnly", 
+    ],
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 5,
+}
+
+
+# Change "None" to "Lax" for local development
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False 
+
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
+
