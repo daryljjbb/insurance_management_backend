@@ -122,6 +122,8 @@ def me(request):
     }, status=200)
 
 
+from django.middleware.csrf import get_token
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def api_login(request):
@@ -131,12 +133,14 @@ def api_login(request):
     
     if user is not None:
         login(request, user)
+        get_token(request)  # ← forces Django to send csrftoken cookie
         return Response({
             "message": "Logged in",
             "is_staff": user.is_staff,
             "is_superuser": user.is_superuser
         })
     return Response({"error": "Invalid credentials"}, status=400)
+
 
 @api_view(['POST'])
 def api_logout(request):
